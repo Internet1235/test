@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Build
-        if: ${{ github.event.inputs.VERSION }} != 'beta'
+        if: github.event.inputs.VERSION != 'beta'
         uses: vmactions/freebsd-vm@v1.1.7
         with:
           usesh: true
@@ -33,8 +33,8 @@ jobs:
             cd ..
             bash ../compile.sh
 
-      - name: Build
-        if: ${{ github.event.inputs.VERSION }} == 'beta'
+      - name: Build Beta
+        if: github.event.inputs.VERSION == 'beta'
         uses: vmactions/freebsd-vm@v1.1.7
         with:
           usesh: true
@@ -54,7 +54,7 @@ jobs:
 
       - name: Generate release tag
         id: tag
-        if: ${{ github.event.inputs.VERSION }} != 'beta'
+        if: github.event.inputs.VERSION != 'beta'
         run: |
           echo "release_tag=${{ github.event.inputs.VERSION }}" >> $GITHUB_OUTPUT
           touch release.txt
@@ -72,7 +72,7 @@ jobs:
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
-        if: ${{ github.event.inputs.VERSION }} == 'beta'
+        if: github.event.inputs.VERSION == 'beta'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
