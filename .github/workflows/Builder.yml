@@ -54,7 +54,6 @@ jobs:
 
       - name: Generate release tag
         id: tag
-        if: github.event.inputs.VERSION != 'beta'
         run: |
           echo "release_tag=${{ github.event.inputs.VERSION }}" >> $GITHUB_OUTPUT
           touch release.txt
@@ -62,7 +61,7 @@ jobs:
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
-        if: steps.tag.outputs.status == 'success'
+        if: steps.tag.outputs.status == 'success' && github.event.inputs.VERSION != 'beta'
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
