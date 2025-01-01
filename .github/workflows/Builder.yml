@@ -42,7 +42,7 @@ jobs:
             pkg install -y git node go gcc wget bash
           run: | 
             git clone https://github.com/AlistGo/alist -b ${{ github.event.inputs.VERSION }}
-            cd alist/public && git clone https://github.com/alist-org/web-dist -b dev && cp -r web-dist/dist aist/public && rm -rf web-dist
+            cd alist/public && git clone https://github.com/alist-org/web-dist -b dev && cp -r web-dist/dist/* public && rm -rf web-dist
             cd ..
             bash ../compile.sh
 
