@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Build
-        if: github.event.inputs.VERSION != 'beta'
+        if: github.event.inputs.VERSION != 'beta' || github.event.inputs.VERSION != 'main'
         uses: vmactions/freebsd-vm@v1.1.7
         with:
           usesh: true
