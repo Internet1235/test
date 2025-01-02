@@ -21,7 +21,7 @@ jobs:
         uses: actions/checkout@main
 
       - name: Build
-        if: github.event.inputs.VERSION != 'beta' || github.event.inputs.VERSION != 'main'
+        if: ${{ github.event.inputs.VERSION != 'beta' || github.event.inputs.VERSION != 'main' }}
         uses: vmactions/freebsd-vm@v1.1.7
         with:
           usesh: true
@@ -34,7 +34,7 @@ jobs:
             bash ../compile.sh
 
       - name: Build Beta
-        if: github.event.inputs.VERSION == 'beta' || github.event.inputs.VERSION == 'main'
+        if: ${{ github.event.inputs.VERSION == 'beta' || github.event.inputs.VERSION == 'main' }}
         uses: vmactions/freebsd-vm@v1.1.7
         with:
           usesh: true
@@ -71,7 +71,7 @@ jobs:
 
       - name: Upload to release
         uses: softprops/action-gh-release@v2
-        if: github.event.inputs.VERSION == 'beta' || github.event.inputs.VERSION == 'main'
+        if: ${{ github.event.inputs.VERSION == 'beta' || github.event.inputs.VERSION == 'main' }}
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
