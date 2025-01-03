@@ -26,7 +26,7 @@ jobs:
         with:
           usesh: true
           prepare: |
-            pkg install -y git node go gcc wget bash grep
+            pkg install -y git node go gcc wget bash gawk
           run: | 
             Version=$(wget -qO- -t1 -T2 "https://api.github.com/repos/alist-org/alist-web/releases/latest" | grep "tag_name" | head -n 1 | awk -F ":" '{print $2}' | sed 's/\"//g;s/,//g;s/ //g') >> version
             git clone https://github.com/AlistGo/alist -b $Version
